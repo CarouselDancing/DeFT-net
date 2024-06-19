@@ -29,9 +29,9 @@ This is the code repo for our paper in submission at CGVC 2024.
 
 [Human3.6m](http://vision.imar.ro/human3.6m/description.php) in exponential map format can be downloaded from [here](http://www.cs.stanford.edu/people/ashesh/h3.6m.zip).
 
-After downloading, extract action walking and walking together. 
+After downloading, extract action walking and walking together for S1...11. 
 
-Our Re-timed interpolation dataset in exponential map format for actions walking and walking together can be downloaded from [here] (https://drive.google.com/file/d/18FWWw734UyeZJHrP5RHLMiJJ9nCq-oY3/view?usp=sharing).
+Our Re-timed interpolation dataset in exponential map format for actions walking and walking together can be downloaded from [here](https://drive.google.com/file/d/18FWWw734UyeZJHrP5RHLMiJJ9nCq-oY3/view?usp=sharing).
 
 
 Repo Structure 
