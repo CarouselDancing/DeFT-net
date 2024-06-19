@@ -18,3 +18,65 @@
 
 ## Overview
 
+This is the code repo for our paper in submission at CGVC 2024.
+
+## Dependencies 
+
+[![Python](https://img.shields.io/pypi/pyversions/sixteen.svg)](https://badge.fury.io/py/nine)
+
+
+## Get the Data
+
+[Human3.6m](http://vision.imar.ro/human3.6m/description.php) in exponential map format can be downloaded from [here](http://www.cs.stanford.edu/people/ashesh/h3.6m.zip).
+
+After downloading, extract action walking and walking together. 
+
+Our Re-timed interpolation dataset in exponential map format for actions walking and walking together can be downloaded from [here] (https://drive.google.com/file/d/18FWWw734UyeZJHrP5RHLMiJJ9nCq-oY3/view?usp=sharing).
+
+
+Repo Structure 
+```shell script
+H3.6m
+|-- S1
+|-- S5
+|-- S6
+|-- ...
+`-- S11
+```
+
+```shell script
+OurRetimedInterpolated
+|-- S1
+|   |-- walking_1.txt  
+|   |-- walking_2.txt
+|   |-- walkingtogether_1.txt  
+|   |-- walkingtogather_2.txt
+|-- |-- ...
+`-- S11
+```
+
+##  Training Configuration
+
+All the running args are defined in [opt.py](utils/opt.py). We use following commands to train on Human3.6m datasets and representations.
+
+To train,
+## - HisRepItselfDCT
+```bash
+python main_h36m_3d.py --kernel_size 10 --dct_n 20 --input_n 50 --output_n 10 --skip_rate 1 --batch_size 32 --test_batch_size 32 --in_features 66 --dataset ./path to H3.6M dataset/
+```
+## - OurRe-timedDCT
+```bash
+python main_h36m_3d.py --kernel_size 10 --dct_n 20 --input_n 50 --output_n 10 --skip_rate 1 --batch_size 32 --test_batch_size 32 --in_features 66 --dataset ./OurRetimedInterpolated/
+```  
+## - Dual-windowedDCT
+```bash
+python main_h36m_3d.py --kernel_size 10 --dct_n 20 --input_n_run 140 --output_n 10 --skip_rate 1 --batch_size 32 --test_batch_size 32 --in_features 66 --dataset ./OurRetimedInterpolated/ --model_fold
+```
+
+## References
+
+Wei Mao, Miaomiao Liu, Mathieu Salzmann. 
+[_History Repeats Itself: Human Motion Prediction via Motion Attention_](https://arxiv.org/abs/2007.11755). In ECCV 20.
+
+Wei Mao, Miaomiao Liu, Mathieu Salzmann, Hongdong Li.
+[_Multi-level Motion Attention for Human Motion Prediction_](https://arxiv.org/abs/2106.09300). In IJCV 21.
