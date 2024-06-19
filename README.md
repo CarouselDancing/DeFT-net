@@ -23,7 +23,7 @@ This is the code repo for our paper submitted at CGVC 2024.
 [![Python](https://img.shields.io/pypi/pyversions/sixteen.svg)](https://badge.fury.io/py/nine)
 
 
-## Get the Data
+## Getting the Data
 
 [Human3.6m](http://vision.imar.ro/human3.6m/description.php) in exponential map format can be downloaded from [here](https://drive.google.com/drive/folders/1zTghPRXPl5XTXdJa-L51O67RbpMkUB2Q?usp=sharing).
 
