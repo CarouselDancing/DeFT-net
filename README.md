@@ -66,11 +66,11 @@ python main_h36m_3d.py --kernel_size 10 --dct_n 20 --input_n 50 --output_n 10 --
 ```
 ## OurRe-timedDCT
 ```bash
-python main_h36m_3d.py --kernel_size 10 --dct_n 20 --input_n 50 --output_n 10 --skip_rate 1 --batch_size 32 --test_batch_size 32 --in_features 66 --dataset ./OurRetimedInterpolated/
+python main_h36m_3d.py --kernel_size 10 --dct_n 20 --input_n 50 --output_n 10 --skip_rate 1 --batch_size 32 --test_batch_size 32 --in_features 66 --dataset ./path to OurRetimedInterpolated/
 ```  
 ## Dual-windowedDCT
 ```bash
-python main_h36m_3d.py --kernel_size 10 --dct_n 20 --input_n_run 140 --output_n 10 --skip_rate 1 --batch_size 32 --test_batch_size 32 --in_features 66 --dataset ./OurRetimedInterpolated/ --model_fold
+python main_h36m_3d.py --kernel_size 10 --dct_n 20 --input_n_run 140 --output_n 10 --skip_rate 1 --batch_size 32 --test_batch_size 32 --in_features 66 --dataset ./path to OurRetimedInterpolated/ --model_fold
 ```
 
 ##  Evaluation
