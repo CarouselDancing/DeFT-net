@@ -27,9 +27,9 @@ This is the code repo for our paper submitted at CGVC 2024.
 
 [Human3.6m](http://vision.imar.ro/human3.6m/description.php) in exponential map format can be downloaded from [here](https://drive.google.com/drive/folders/1zTghPRXPl5XTXdJa-L51O67RbpMkUB2Q?usp=sharing).
 
-After downloading, extract action walking and walking together for S1...11. 
+After downloading, extract actions walking and walking together for S1...11. 
 
-Our Re-timed interpolation dataset in exponential map format for actions walking and walking together can be downloaded from [here](https://drive.google.com/file/d/18FWWw734UyeZJHrP5RHLMiJJ9nCq-oY3/view?usp=sharing).
+Our re-timed interpolation dataset in exponential map format for actions walking and walking together can be downloaded from [here](https://drive.google.com/file/d/18FWWw734UyeZJHrP5RHLMiJJ9nCq-oY3/view?usp=sharing).
 
 
 Repo Structure 
@@ -48,7 +48,7 @@ OurRetimedInterpolated
 |   |-- walking_1.txt  
 |   |-- walking_2.txt
 |   |-- walkingtogether_1.txt  
-|   |-- walkingtogather_2.txt
+|   |-- walkingtogether_2.txt
 |-- |-- ...
 `-- S11
 ```
@@ -77,6 +77,3 @@ python main_h36m_3d.py --kernel_size 10 --dct_n 20 --input_n_run 140 --output_n 
 
 Wei Mao, Miaomiao Liu, Mathieu Salzmann. 
 [_History Repeats Itself: Human Motion Prediction via Motion Attention_](https://arxiv.org/abs/2007.11755). In ECCV 20.
-
-Wei Mao, Miaomiao Liu, Mathieu Salzmann, Hongdong Li.
-[_Multi-level Motion Attention for Human Motion Prediction_](https://arxiv.org/abs/2106.09300). In IJCV 21.
