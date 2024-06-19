@@ -16,7 +16,7 @@
 
 ## Overview
 
-This is the code repo for our paper in submission at CGVC 2024.
+This is the code repo for our paper submitted at CGVC 2024.
 
 ## Dependencies 
 
