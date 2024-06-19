@@ -25,7 +25,7 @@ This is the code repo for our paper in submission at CGVC 2024.
 
 ## Get the Data
 
-[Human3.6m](http://vision.imar.ro/human3.6m/description.php) in exponential map format can be downloaded from [here](http://www.cs.stanford.edu/people/ashesh/h3.6m.zip).
+[Human3.6m](http://vision.imar.ro/human3.6m/description.php) in exponential map format can be downloaded from [here](https://drive.google.com/drive/folders/1zTghPRXPl5XTXdJa-L51O67RbpMkUB2Q?usp=sharing).
 
 After downloading, extract action walking and walking together for S1...11. 
 
