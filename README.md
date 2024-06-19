@@ -32,7 +32,7 @@ After downloading, extract actions walking and walking together for S1...11.
 Our re-timed interpolated version of H3.6m dataset in exponential map format for actions walking and walking together can be downloaded from [here](https://drive.google.com/file/d/18FWWw734UyeZJHrP5RHLMiJJ9nCq-oY3/view?usp=sharing).
 
 
-Repo Structure 
+Dataset Directory Structure 
 ```shell script
 H3.6m
 |-- S1
