@@ -75,5 +75,7 @@ python main_h36m_3d.py --kernel_size 10 --dct_n 20 --input_n_run 140 --output_n 
 
 ## References
 
+D. Sinclair, A. Ademola, B. Koniaris, K. Mitchell: _[DanceGraph: A Complementary Architecture for Synchronous Dancing Online](https://farpeek.com/DanceGraph.pdf)_, 2023 36th International Computer Animation & Social Agents (CASA) . 
+
 Wei Mao, Miaomiao Liu, Mathieu Salzmann. 
 [_History Repeats Itself: Human Motion Prediction via Motion Attention_](https://arxiv.org/abs/2007.11755). In ECCV 20.
