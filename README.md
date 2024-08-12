@@ -1,5 +1,5 @@
 <h2 align="center">DeFT-net</h2>
-<p align="center">Dual-Window Frequency Transformer for Rhythmic Motion Prediction rhymthic data period timing annonations of the Human3.6M dataset and dual-windewed attention model source code are provided open source from the <a href="https://carouseldancing.org">CAROUSEL+</a> EU funded FET PROACT project #101017779</p>
+<p align="center">Dual-Window Extended Frequency Transformer for Rhythmic Motion Prediction rhymthic data period timing annonations of the Human3.6M dataset and dual-windewed attention model source code are provided open source from the <a href="https://carouseldancing.org">CAROUSEL+</a> EU funded FET PROACT project #101017779</p>
 <div align="center">
 
 [![Carousel Dancing Discord](https://dcbadge.vercel.app/api/server/eMcjUHN8rQ?style=flat)](https://discord.gg/eMcjUHN8rQ)
