@@ -1,8 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import
-from __future__ import print_function
-
 import torch.nn as nn
 import torch
 from torch.nn.parameter import Parameter
@@ -11,19 +6,21 @@ import math
 
 class GraphConvolution(nn.Module):
     """
-    adapted from : https://github.com/tkipf/gcn/blob/92600c39797c2bfb61a508e52b88fb554df30177/gcn/layers.py#L132
+    Graph Convolutional Layer with learnable adjacency (attention) matrix.
     """
 
     def __init__(self, in_features, out_features, bias=True, node_n=48):
         super(GraphConvolution, self).__init__()
         self.in_features = in_features
         self.out_features = out_features
-        self.weight = Parameter(torch.FloatTensor(in_features, out_features))
-        self.att = Parameter(torch.FloatTensor(node_n, node_n))
+        self.weight = Parameter(torch.FloatTensor(in_features, out_features))  # Feature transformation
+        self.att = Parameter(torch.FloatTensor(node_n, node_n))  # Learnable adjacency matrix
+
         if bias:
             self.bias = Parameter(torch.FloatTensor(out_features))
         else:
             self.register_parameter('bias', None)
+
         self.reset_parameters()
 
     def reset_parameters(self):
@@ -34,23 +31,21 @@ class GraphConvolution(nn.Module):
             self.bias.data.uniform_(-stdv, stdv)
 
     def forward(self, input):
-        support = torch.matmul(input, self.weight)
-        output = torch.matmul(self.att, support)
+        support = torch.matmul(input, self.weight)  # Linear transformation of node features
+        output = torch.matmul(self.att, support)  # Apply adjacency matrix (attention)
         if self.bias is not None:
             return output + self.bias
         else:
             return output
 
     def __repr__(self):
-        return self.__class__.__name__ + ' (' \
-               + str(self.in_features) + ' -> ' \
-               + str(self.out_features) + ')'
+        return self.__class__.__name__ + ' (' + str(self.in_features) + ' -> ' + str(self.out_features) + ')'
 
 
 class GC_Block(nn.Module):
     def __init__(self, in_features, p_dropout, bias=True, node_n=48):
         """
-        Define a residual block of GCN
+        A residual block with two GCN layers.
         """
         super(GC_Block, self).__init__()
         self.in_features = in_features
@@ -62,67 +57,73 @@ class GC_Block(nn.Module):
         self.gc2 = GraphConvolution(in_features, in_features, node_n=node_n, bias=bias)
         self.bn2 = nn.BatchNorm1d(node_n * in_features)
 
-        self.do = nn.Dropout(p_dropout)
-        self.act_f = nn.Tanh()
+        self.dropout = nn.Dropout(p_dropout)
+        self.activation = nn.Tanh()
 
     def forward(self, x):
+        # First GCN layer
         y = self.gc1(x)
         b, n, f = y.shape
-        y = self.bn1(y.view(b, -1)).view(b, n, f)
-        y = self.act_f(y)
-        y = self.do(y)
+        y = self.bn1(y.view(b, -1)).view(b, n, f)  # Batch normalization
+        y = self.activation(y)
+        y = self.dropout(y)
 
+        # Second GCN layer
         y = self.gc2(y)
         b, n, f = y.shape
         y = self.bn2(y.view(b, -1)).view(b, n, f)
-        y = self.act_f(y)
-        y = self.do(y)
+        y = self.activation(y)
+        y = self.dropout(y)
 
-        return y + x
+        return y + x  # Residual connection
 
     def __repr__(self):
-        return self.__class__.__name__ + ' (' \
-               + str(self.in_features) + ' -> ' \
-               + str(self.out_features) + ')'
+        return self.__class__.__name__ + ' (' + str(self.in_features) + ' -> ' + str(self.out_features) + ')'
 
 
 class GCN(nn.Module):
     def __init__(self, input_feature, hidden_feature, p_dropout, num_stage=1, node_n=48):
         """
-        :param input_feature: num of input feature
-        :param hidden_feature: num of hidden feature
-        :param p_dropout: drop out prob.
-        :param num_stage: number of residual blocks
-        :param node_n: number of nodes in graph
+        GCN with multiple stages of residual blocks.
+        :param input_feature: Number of input features per node.
+        :param hidden_feature: Number of hidden features in the GCN layers.
+        :param p_dropout: Dropout probability.
+        :param num_stage: Number of residual blocks (GC_Block) to stack.
+        :param node_n: Number of nodes in the graph.
         """
         super(GCN, self).__init__()
         self.num_stage = num_stage
 
+        # First Graph Convolution Layer
         self.gc1 = GraphConvolution(input_feature, hidden_feature, node_n=node_n)
         self.bn1 = nn.BatchNorm1d(node_n * hidden_feature)
 
-        self.gcbs = []
-        for i in range(num_stage):
-            self.gcbs.append(GC_Block(hidden_feature, p_dropout=p_dropout, node_n=node_n))
+        # Create Residual Blocks
+        self.gcbs = nn.ModuleList([GC_Block(hidden_feature, p_dropout=p_dropout, node_n=node_n) for _ in range(num_stage)])
 
-        self.gcbs = nn.ModuleList(self.gcbs)
-
+        # Final Graph Convolution Layer
         self.gc7 = GraphConvolution(hidden_feature, input_feature, node_n=node_n)
 
-        self.do = nn.Dropout(p_dropout)
-        self.act_f = nn.Tanh()
+        self.dropout = nn.Dropout(p_dropout)
+        self.activation = nn.Tanh()
 
     def forward(self, x, is_out_resi=True):
+        # Initial GCN layer
         y = self.gc1(x)
         b, n, f = y.shape
-        y = self.bn1(y.view(b, -1)).view(b, n, f)
-        y = self.act_f(y)
-        y = self.do(y)
+        y = self.bn1(y.view(b, -1)).view(b, n, f)  # Apply batch normalization
+        y = self.activation(y)
+        y = self.dropout(y)
 
-        for i in range(self.num_stage):
-            y = self.gcbs[i](y)
+        # Pass through residual GCN blocks
+        for gc_block in self.gcbs:
+            y = gc_block(y)
 
+        # Final GCN layer
         y = self.gc7(y)
+
+        # Apply residual connection if enabled
         if is_out_resi:
             y = y + x
+
         return y

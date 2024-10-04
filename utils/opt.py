@@ -26,6 +26,8 @@ class Options:
         self.parser.add_argument('--exp', type=str, default='test', help='ID of experiment')
         self.parser.add_argument('--is_eval', dest='is_eval', action='store_true',
                                  help='whether it is to evaluate the model')
+        self.parser.add_argument('--is_eval_fold', dest='is_eval_fold', action='store_true',
+                                 help='whether it is to evaluate the model')
         self.parser.add_argument('--is_mpjpe', dest='is_mpjpe', action='store_true',
                                  help='whether it is to evaluate a single file through the model')
 
