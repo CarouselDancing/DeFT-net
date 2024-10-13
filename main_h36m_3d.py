@@ -47,7 +47,7 @@ def main(opt):
     print(">>> total params: {:.2f}M".format(sum(p.numel() for p in net_pred.parameters()) / 1000000.0))
 
     if opt.is_load or opt.is_eval or opt.is_eval_fold:
-        model_path_len = './{}/ckpt_best.pth.tar'.format(opt.ckpt)
+        model_path_len = './{}/ckpt_last.pth.tar'.format(opt.ckpt)
         print(">>> loading ckpt len from '{}'".format(model_path_len))
         ckpt = torch.load(model_path_len)
         start_epoch = ckpt['epoch'] + 1
@@ -99,6 +99,8 @@ def main(opt):
             ret_log = np.append(ret_log, [ret_test[k]])
             head = np.append(head, [k])
         log.save_csv_log(opt, head, ret_log, is_create=True, file_name='test_walking')
+
+        return
         # print('testing error: {:.3f}'.format(ret_test['m_p3d_h36']))
 
 

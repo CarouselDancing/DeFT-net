@@ -113,7 +113,7 @@ class AttModel_fold(Module):
         bs = src.shape[0]
 
         # Split the src tensor into 3 slices along the feature dimension (last dimension)
-        slice_1_end = 66  # Adjust based on your requirements
+        slice_1_end = 66  # Adjust based on your irequirements
         slice_2_end = 132
 
         window1 = src[:, :, :slice_1_end]  # Shape [32, 50, 66]
@@ -127,7 +127,7 @@ class AttModel_fold(Module):
         # Apply adjusted weights to windows based on deltas
         window1_weighted = window1 * 1.0  # 100% influence for window1
         window2_weighted = window2 * 0.95 * torch.exp(-delta12)  # 95% influence with delta12 adjustment
-        window3_weighted = window3 * 0.925 * torch.exp(-delta23)  # 92.5% influence with delta23 adjustment
+        window3_weighted = window3 * 0.8 * torch.exp(-delta23)  # 92.5% influence with delta23 adjustment
 
         # Concatenate the weighted windows back together
         weighted_src = torch.cat([window1_weighted, window2_weighted, window3_weighted], dim=-1)  # Shape [32, 50, 198]
