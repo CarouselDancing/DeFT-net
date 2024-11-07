@@ -79,3 +79,9 @@ D. Sinclair, A. Ademola, B. Koniaris, K. Mitchell: _[DanceGraph: A Complementary
 
 Wei Mao, Miaomiao Liu, Mathieu Salzmann. 
 [_History Repeats Itself: Human Motion Prediction via Motion Attention_](https://arxiv.org/abs/2007.11755). In ECCV 20.
+
+Ademola, A., Sinclair, D., Koniaris, B., Hannah, S., Mitchell, K. [DeFT-Net: Dual-Window Extended Frequency Transformer for Rhythmic Motion Prediction](https://diglib.eg.org/server/api/core/bitstreams/c5743b51-cdb3-402e-aed8-5788f3a45760/content). In CGVC 2024
+
+
+
+
